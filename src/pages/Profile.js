@@ -9,12 +9,10 @@ export function Profile() {
   const userId = location.state?.userId;
   //   console.log("User ID:", userId);
 
-  // State to store the fetched user data and quiz history
   const [userData, setUserData] = useState([]);
   const [quizHistory, setQuizHistory] = useState([]);
   const [error, setError] = useState(null);
 
-  // Form state for profile update
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,7 +27,6 @@ export function Profile() {
           }
         );
         console.log("Data fetched successfully:", response.data);
-        // Set the user data and quiz history from the response
         setUserData(response.data.user[0]);
         setQuizHistory(response.data.quizData);
       } catch (error) {
@@ -41,7 +38,6 @@ export function Profile() {
     fetchData();
   }, [userId]);
 
-  // Show a loading spinner until user data is available
   if (!userData) {
     return (
       <div className="container mt-4 text-center">
@@ -52,7 +48,6 @@ export function Profile() {
     );
   }
 
-  // Handler for profile update form submission
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     const payload = {
@@ -73,21 +68,18 @@ export function Profile() {
     }
   };
 
-  // Handler to navigate back to the dashboard
   const handleGoToDashboard = () => {
     navigate("/dashboard");
   };
 
   return (
     <div className="container mt-4">
-      {/* Navigation Button to Dashboard */}
       <div className="d-flex justify-content-end mb-3">
         <button className="btn btn-warning" onClick={handleGoToDashboard}>
           Dashboard
         </button>
       </div>
 
-      {/* Profile Details Section */}
       <div className="card mb-4 card-custom text-start card-white-border">
         <div className="card-header">
           <h3 className="underline-white">User Details</h3>
@@ -106,7 +98,6 @@ export function Profile() {
         </div>
       </div>
 
-      {/* Quiz History Section */}
       <div className="card mb-4 card-custom text-start card-white-border">
         <div className="card-header">
           <h3>Quiz History</h3>
@@ -138,7 +129,6 @@ export function Profile() {
         </div>
       </div>
 
-            {/* Edit Profile Form */}
             <div className="card mb-4 card-custom text-start card-white-border">
         <div className="card-header">
           <h3>Edit Profile</h3>

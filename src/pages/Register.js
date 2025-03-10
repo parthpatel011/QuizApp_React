@@ -28,13 +28,8 @@ export function Register() {
             "http://127.0.0.1:8000/api/register",
             userRegistration
           );
-        //   const { token } = response.data;
-          // Store token in local storage
-        //   localStorage.setItem("authToken", token);
-          // Navigate to the quiz page (or dashboard)
           navigate("/login");
         } catch (error) {
-          // Handle errors - display error message
           if (error.response && error.response.data) {
             setErrorMsg(error.response.data.message || "Registration failed");
           } else {
@@ -62,7 +57,6 @@ export function Register() {
         />
       </div>
     </div>
-    {/* Email Field */}
     <div className="row mb-4">
       <div className="col-md-3">
         <label className="form-label" htmlFor="email">
@@ -82,7 +76,6 @@ export function Register() {
       </div>
     </div>
 
-    {/* Password Field */}
     <div className="row mb-4">
       <div className="col-md-3">
         <label className="form-label" htmlFor="password">
@@ -122,14 +115,12 @@ export function Register() {
       </div>
     </div>
 
-    {/* Display Error Message */}
     {errorMsg && (
       <div className="alert alert-danger" role="alert">
         {errorMsg}
       </div>
     )}
 
-    {/* Sign In Button */}
     <button
       type="submit"
       data-mdb-button-init
@@ -139,7 +130,6 @@ export function Register() {
       Register
     </button>
 
-    {/* Registration Link */}
     <div className="text-center">
       <p>
         already registered? <Link to="/login">Login</Link>

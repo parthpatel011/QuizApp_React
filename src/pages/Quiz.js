@@ -4,14 +4,12 @@ import axios from "axios";
 import { useNavigate,useLocation } from "react-router-dom";
 
 export function Quiz() {
-  // State to store fetched questions
   const [questions, setQuestions] = useState([]);
   const location = useLocation();
-  const userId = location.state?.userId; // Retrieve the userId passed from Dashboard
+  const userId = location.state?.userId;
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
 
-  // Other state variables for quiz logic
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [submittedQuestions, setSubmittedQuestions] = useState({}); // e.g., { [questionId]: { isCorrect: boolean } }
@@ -67,19 +65,17 @@ export function Quiz() {
   const currentQuestion = questions[currentIndex];
   const isCurrentSubmitted = submittedQuestions[currentQuestion.id];
 
-  // Handle option selection (only allowed if not submitted)
   const handleOptionChange = (questionId, optionId) => {
     if (!submittedQuestions[questionId]) {
       setSelectedOptions({ ...selectedOptions, [questionId]: optionId });
     }
   };
 
-  // Handle submission for the current question
   const handleQuestionSubmit = () => {
-    if (submittedQuestions[currentQuestion.id]) return; // Already submitted
+    if (submittedQuestions[currentQuestion.id]) return;
 
     const selectedOptionId = selectedOptions[currentQuestion.id];
-    if (!selectedOptionId) return; // Optionally, show an alert that an option must be selected
+    if (!selectedOptionId) return; 
 
     const selectedOption = currentQuestion.options.find(
       (opt) => opt.id === selectedOptionId
@@ -88,14 +84,12 @@ export function Quiz() {
     if (selectedOption && selectedOption.isCorrect) {
       setScore((prevScore) => prevScore + 1);
     }
-    // Record submission for this question regardless of correctness
     setSubmittedQuestions((prev) => ({
       ...prev,
       [currentQuestion.id]: { isCorrect: selectedOption ? selectedOption.isCorrect : false },
     }));
   };
 
-  // Navigation functions
   const handleNext = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -110,15 +104,12 @@ export function Quiz() {
     }
   };
 
-  // Final quiz submission handler
   const handleQuizSubmit = async (e) => {
     e.preventDefault();
-    // Optionally, force submission of the current question if not already submitted
     if (!submittedQuestions[currentQuestion.id] && selectedOptions[currentQuestion.id]) {
       handleQuestionSubmit();
     }
     
-    // Prepare the data to send
     const quizData = {
       userId: userId,
       quizTitle: "Sample Quiz",
@@ -139,7 +130,6 @@ export function Quiz() {
   };
   
 
-  // Home button handler with confirmation if quiz is not submitted
   const handleHome = () => {
     if (!isQuizCompleted) {
       const confirmLeave = window.confirm(
@@ -162,17 +152,14 @@ export function Quiz() {
         </button>
       </div>
 
-      {/* Live Score */}
       <div className="alert alert-info">Score: {score}</div>
 
-      {/* Question Progress */}
       <p className="fw-bold">
         Question {currentIndex + 1} of {questions.length}
       </p>
 
       {!isQuizCompleted ? (
         <form onSubmit={handleQuizSubmit}>
-          {/* Display current question */}
           <div className="mb-4">
             <h5>{currentQuestion.question}</h5>
             {currentQuestion.options.map((option) => (
@@ -197,13 +184,11 @@ export function Quiz() {
             ))}
           </div>
 
-          {/* If the question is submitted and the answer is wrong, show an error */}
           {submittedQuestions[currentQuestion.id] &&
             !submittedQuestions[currentQuestion.id].isCorrect && (
               <div className="alert alert-danger">Wrong answer</div>
             )}
 
-          {/* Navigation Buttons: Previous, Submit Answer, Next/Submit Quiz */}
           <div className="d-flex justify-content-between align-items-center">
             <button
               type="button"

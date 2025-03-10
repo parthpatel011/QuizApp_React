@@ -13,7 +13,6 @@ export function Dashboard() {
 
   return (
     <div className="container mt-4">
-      {/* Header Section */}
       <div className="row mb-4">
         <div className="col">
           <div className="d-flex justify-content-between align-items-center">
@@ -32,7 +31,6 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Quiz Instructions */}
       <div className="row mb-4">
         <div className="col">
           <div className="p-4 shadow-sm text-start">
@@ -55,7 +53,6 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Quiz Cards */}
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
