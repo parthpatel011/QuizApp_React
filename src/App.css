@@ -28,6 +28,16 @@
   color: #61dafb;
 }
 
+.card-custom {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+.card-white-border {
+  --bs-card-border-color: #fff !important;
+  border-color: var(--bs-card-border-color) !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
