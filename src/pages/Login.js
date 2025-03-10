@@ -27,10 +27,8 @@ export function Login() {
         "http://127.0.0.1:8000/api/login",
         userRegistration
       );
-      const { token, user } = response.data; // Ensure your backend returns user info if needed
-      // Update global auth state via AuthContext
+      const { token, user } = response.data; 
       updateAuthState(token, user);
-      // Optionally, store the token if AuthContext doesn't do it internally
       localStorage.setItem("authToken", token);
       navigate("/dashboard");
     } catch (error) {
